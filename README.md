@@ -1,0 +1,4 @@
+warlog
+======
+
+Display logs everywhere
