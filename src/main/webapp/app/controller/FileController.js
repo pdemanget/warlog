@@ -1,3 +1,6 @@
+/**
+ * Controller that manage links.
+ */
 Ext.define('app.controller.FileController', {
     extend: 'Ext.app.Controller',
 
@@ -7,20 +10,31 @@ Ext.define('app.controller.FileController', {
 
     views: ['file.List', 'file.Tree'],
 
-//    constructor:function(){
-//    	alert('PLEASE SAY SOMETHING');
-//    },
     init: function() {
-    	alert('PLEASE SAY SOMETHING');
+    	//alert('PLEASE SAY SOMETHING');
         this.control({
+        	'filetree dataview': {
+                itemdblclick: this.treeClick
+            },
+        	
             'viewport > filelist dataview': {
-                itemdblclick: this.editUser
+                itemdblclick: this.edit
             },
             'fileedit button[action=save]': {
                 click: this.updateUser
             }
         });
     },
+    
+    treeClick: function(e, f) {
+		var path = f.data.path;
+		console.log("load path "+ path);
+//		this.getStore("Lines").load({params:{path:path}});
+		var store=this.getStore("Lines");
+		store.getProxy().extraParams= {path:path};
+		store.load();
+
+	},
 
     edit: function(grid, record) {
         var edit = Ext.widget('fileedit').show();

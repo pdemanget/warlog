@@ -7,6 +7,7 @@ public class FileNode {
   private String name;
   private String path;
   private boolean folder;
+  private boolean leaf;
   private long length;
   
   public String getName() {
@@ -26,12 +27,19 @@ public class FileNode {
   }
   public void setFolder(boolean folder) {
     this.folder = folder;
+    this.leaf=!folder;
   }
   public long getLength() {
     return length;
   }
   public void setLength(long length) {
     this.length = length;
+  }
+  public boolean isLeaf() {
+    return leaf;
+  }
+  public void setLeaf(boolean leaf) {
+    this.leaf = leaf;
   }
   
 }

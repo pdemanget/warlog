@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import fr.warlog.util.Data;
 import fr.warlog.util.JSONUtils;
 
 /**
@@ -40,8 +41,11 @@ public class FileMgt {
     fileNode.setName(file.getName());
     fileNode.setLength(file.length());
     try {
-      fileNode.setPath(file.getCanonicalPath());
+      fileNode.setPath(file.getCanonicalPath().replace('\\', '/'));
     } catch (IOException e) {
+    }
+    if("".equals(file.getName())){
+      fileNode.setName(fileNode.getPath());
     }
     return fileNode;
   }
@@ -90,18 +94,29 @@ public class FileMgt {
    * Read & parse, see also
    * http://stackoverflow.com/questions/6623974/parsing-log4j-layouts-from-log-files
    */
-  public  List<Line>  readFileJson( String pMsg ) {
+  public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit) {
     List<Line>  result = new ArrayList<Line>();
+    Data<List<Line>> dataRes = new Data<List<Line>>(result);
       BufferedReader lBis = null;
       try {
           String line;
 
           lBis = new BufferedReader( new InputStreamReader( new FileInputStream( pMsg ), "UTF-8" ) );
           int i=0;
+          boolean doProcess=true;
+          int total=0;
           while ( ( line = lBis.readLine() ) != null ) {
-              result.add(new Line(i++, line) );
+              if(start>0){
+                start--;
+              }else{
+                if(doProcess)
+                    result.add(new Line(i++, line) );
+                limit--;
+                if(limit==0) doProcess=false;
+              }
+              total++;
           }
-
+          dataRes.setTotal(total);
       }
       catch ( IOException e ) {
           log.error( "Can't read file "+ pMsg, e );
@@ -118,7 +133,7 @@ public class FileMgt {
           }
       }
 
-      return result;
+      return dataRes;
   }
 
 }

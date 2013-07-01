@@ -4,10 +4,15 @@ Ext.define('app.view.file.List' ,{
 
     title : 'list ...',
     store: 'Lines',
+    dockedItems: [{
+        xtype: 'pagingtoolbar',
+        dock: 'bottom',
+        store: 'Lines',
+        displayInfo: true}],
 
     columns: [
         {header: 'A',  dataIndex: 'col1',  flex: 1},
         {header: 'B', dataIndex: 'col2', flex: 1},
-        {header: 'C', dataIndex: 'col2', flex: 1}
+        {header: 'C', dataIndex: 'col3', flex: 1}
     ]
 });

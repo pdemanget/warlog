@@ -21,9 +21,9 @@ public class FolderServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     resp.setCharacterEncoding("UTF-8");
     
-    String path = req.getParameter("path");
+    String path = req.getParameter("node");
     List<FileNode> list;
-    if(path==null){
+    if(path==null||"root".equals(path)){
       list=new FileMgt().roots();
     }else{
       FileNode root = new FileNode();
@@ -31,7 +31,7 @@ public class FolderServlet extends HttpServlet {
       list = new FileMgt().list(root);
     }
     
-    resp.getOutputStream().write(JSONUtils.toJsonString(list).getBytes("UTF-8"));
+    resp.getOutputStream().write(JSONUtils.toJsonStringWithData(list).getBytes("UTF-8"));
   }
   
 

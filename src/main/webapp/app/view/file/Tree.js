@@ -3,7 +3,12 @@ Ext.define('app.view.file.Tree', {
     alias : 'widget.filetree',
     title : 'navigation tree',
     store: 'FileTree',
-	rootVisible: false
+	rootVisible: false,
+	columns: [
+        {xtype:'treecolumn', header: 'Name',  dataIndex: 'name',  width:200}     
+        ,{header: 'Length', dataIndex: 'length', width:250}
+      ]
+	
 })
 
 /*var store = Ext.create('Ext.data.TreeStore', {

@@ -1,0 +1,11 @@
+{
+    success: true,
+    data: [
+        {path: "C:/", name: 'Ed', folder:true,
+        	data:[
+        		{path: "C:/test", name: 'test', folder:true}		
+        	]
+        },
+        {path: "D:/", name: 'Ed', folder:true, leaf:true}
+    ]
+}

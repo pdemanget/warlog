@@ -14,9 +14,9 @@ public class Line {
     this.id=id;
     String cols[]=line.split(" ",3);
     col1=cols[0];
-    if (cols.length>=1)
+    if (cols.length>1)
       col2=cols[1];
-    if (cols.length>=2)
+    if (cols.length>2)
       col3=cols[2];
     
   }

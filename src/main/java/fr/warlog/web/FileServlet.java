@@ -15,17 +15,28 @@ import fr.warlog.util.JSONUtils;
  * @author Philippe
  */
 public class FileServlet extends HttpServlet {
+  
+  public int toInt(String s, int defaut){
+    try {
+      if(s != null)
+        return Integer.parseInt(s);
+    } catch (NumberFormatException e) {
+    }
+    return defaut;
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     resp.setCharacterEncoding("UTF-8");
     String path = req.getParameter("path");
     String raw = req.getParameter("raw");
+    int start = toInt(req.getParameter("start"),0);
+    int limit = toInt(req.getParameter("limit"),-1);
     String result = null;
-    if(raw == null){
+    if(raw != null){
       result = new FileMgt().readFile(path);
     }else{
-      result = JSONUtils.toJsonString(new FileMgt().readFileJson(path));
+      result = JSONUtils.toJsonString(new FileMgt().readFileLines(path,start,limit));
     }
     
     resp.getOutputStream().write(result.getBytes("UTF-8"));

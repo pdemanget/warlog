@@ -4,11 +4,11 @@ Ext.define('app.view.EasyViewport', {
 //    	alert('PLEASE SAY SOMETHING viewport');
 //    },
 layout:'border',
-//defaults: {
-//    collapsible: true,
-//    split: true,
-//    bodyStyle: 'padding:15px'
-//},
+defaults: {
+    collapsible: true,
+    split: true,
+    bodyStyle: 'padding:15px'
+},
 items: [
 {
     title: 'Menu',
@@ -31,9 +31,9 @@ items: [
     region:'west',
     margins: '5 0 0 0',
     cmargins: '5 5 0 0',
-    width: 175,
+    width: 250,
     minSize: 100,
-    maxSize: 250
+    maxSize: 500
 	,xtype: 'filetree'
 },{
     title: 'Main Content',
