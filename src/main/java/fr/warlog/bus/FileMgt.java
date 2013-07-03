@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import fr.warlog.util.Data;
 import fr.warlog.util.JSONUtils;
+import fr.warlog.util.MainUtils;
 
 /**
  * File Management
@@ -41,7 +42,11 @@ public class FileMgt {
     fileNode.setName(file.getName());
     fileNode.setLength(file.length());
     try {
-      fileNode.setPath(file.getCanonicalPath().replace('\\', '/'));
+    	if(MainUtils.isWindows()){
+    		fileNode.setPath(file.getCanonicalPath().replace('\\', '/'));
+    	}else{
+    		fileNode.setPath(file.getCanonicalPath());
+    	}
     } catch (IOException e) {
     }
     if("".equals(file.getName())){
