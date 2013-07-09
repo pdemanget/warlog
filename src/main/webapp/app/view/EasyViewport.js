@@ -40,7 +40,8 @@ items: [
     collapsible: false,
     region:'center',
     margins: '5 0 0 0',
-	xtype: 'filelist'
+	xtype: 'filelist',
+	id:'maincontent'
 }]	
 
 });

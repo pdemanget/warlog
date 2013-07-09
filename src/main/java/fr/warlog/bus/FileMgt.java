@@ -6,13 +6,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import fr.warlog.util.Data;
 import fr.warlog.util.JSONUtils;
 import fr.warlog.util.MainUtils;
+import fr.warlog.util.Utils;
 
 /**
  * File Management
@@ -21,6 +24,8 @@ import fr.warlog.util.MainUtils;
  */
 public class FileMgt {
   private static final Logger log = Logger.getLogger(FileMgt.class);
+  private static Map<String,Long> mapId=new HashMap<>();
+  private static long lastId=1;
   
   public List<FileNode> roots() {
     File[] listRoots = File.listRoots();
@@ -36,6 +41,17 @@ public class FileMgt {
     return res;
   }
 
+  private long nextId(String path){
+	  if(mapId.get(path) == null)  mapId.put(path,++lastId);
+	  return mapId.get(path);
+  }
+  private String fromId(long id){
+	  for(String path:mapId.keySet()){
+		  if(mapId.get(path)==id) return path;
+	  }
+	  return null;
+  }
+  
   private FileNode toFileNode(File file) {
     FileNode fileNode = new FileNode();
     fileNode.setFolder(file.isDirectory());
@@ -47,6 +63,7 @@ public class FileMgt {
     	}else{
     		fileNode.setPath(file.getCanonicalPath());
     	}
+    	fileNode.setId(nextId(file.getPath()));
     } catch (IOException e) {
     }
     if("".equals(file.getName())){
@@ -56,7 +73,11 @@ public class FileMgt {
   }
 
   public List<FileNode> list(FileNode root) {
-    File[] list = new File(root.getPath()).listFiles();
+	if (true){
+		root.setId(Long.parseLong(root.getPath()));
+		root.setPath(fromId(root.getId()));
+	}
+    File[] list = Utils.trapNull(new File(root.getPath()).listFiles());
     return toFileNodes(list);
   }
   
