@@ -6,7 +6,7 @@ Ext.application({
     	Ext.create('app.view.EasyViewport');
     },
     controllers: [
-        'FileController'
+        'FileController','RouteController'
     ],
 //	views: ['file.List','file.Tree']
 });

@@ -14,6 +14,7 @@ import fr.warlog.util.JSONUtils;
  * read a file, & returns as lines | raw data 
  * @author Philippe
  */
+@SuppressWarnings("serial")
 public class FileServlet extends HttpServlet {
   
   public int toInt(String s, int defaut){
@@ -30,13 +31,15 @@ public class FileServlet extends HttpServlet {
     resp.setCharacterEncoding("UTF-8");
     String path = req.getParameter("path");
     String raw = req.getParameter("raw");
+    String sep = req.getParameter("sep");
+    int col = toInt(req.getParameter("col"),1);
     int start = toInt(req.getParameter("start"),0);
     int limit = toInt(req.getParameter("limit"),-1);
     String result = null;
     if(raw != null){
       result = new FileMgt().readFile(path);
     }else{
-      result = JSONUtils.toJsonString(new FileMgt().readFileLines(path,start,limit));
+      result = JSONUtils.toJsonString(new FileMgt().readFileLines(path,start,limit,sep,col));
     }
     
     resp.getOutputStream().write(result.getBytes("UTF-8"));

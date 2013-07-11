@@ -1,3 +1,6 @@
+/**
+ * List of line of a file.
+ */
 Ext.define('app.view.file.List' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.filelist',
@@ -11,8 +14,9 @@ Ext.define('app.view.file.List' ,{
         displayInfo: true}],
 
     columns: [
-        {header: 'A',  dataIndex: 'col1',  flex: 1},
-        {header: 'B', dataIndex: 'col2', flex: 1},
-        {header: 'C', dataIndex: 'col3', flex: 1}
+         {header: 'N°',  dataIndex: 'id',  width:50}
+        ,{header: 'A',  dataIndex: 'col1',  flex: 1}
+//        ,{header: 'B', dataIndex: 'col2', flex: 1}
+//        ,{header: 'C', dataIndex: 'col3', flex: 1}
     ]
 });

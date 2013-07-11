@@ -6,13 +6,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import fr.warlog.util.Data;
-import fr.warlog.util.JSONUtils;
 import fr.warlog.util.MainUtils;
+import fr.warlog.util.StandardException;
+import fr.warlog.util.Utils;
 
 /**
  * File Management
@@ -21,6 +24,8 @@ import fr.warlog.util.MainUtils;
  */
 public class FileMgt {
   private static final Logger log = Logger.getLogger(FileMgt.class);
+  private static Map<String,Long> mapId=new HashMap<>();
+  private static long lastId=1;
   
   public List<FileNode> roots() {
     File[] listRoots = File.listRoots();
@@ -36,6 +41,17 @@ public class FileMgt {
     return res;
   }
 
+  private long nextId(String path){
+	  if(mapId.get(path) == null)  mapId.put(path,++lastId);
+	  return mapId.get(path);
+  }
+  private String fromId(long id){
+	  for(String path:mapId.keySet()){
+		  if(mapId.get(path)==id) return path;
+	  }
+	  return null;
+  }
+  
   private FileNode toFileNode(File file) {
     FileNode fileNode = new FileNode();
     fileNode.setFolder(file.isDirectory());
@@ -47,6 +63,7 @@ public class FileMgt {
     	}else{
     		fileNode.setPath(file.getCanonicalPath());
     	}
+    	fileNode.setId(nextId(file.getPath()));
     } catch (IOException e) {
     }
     if("".equals(file.getName())){
@@ -56,7 +73,11 @@ public class FileMgt {
   }
 
   public List<FileNode> list(FileNode root) {
-    File[] list = new File(root.getPath()).listFiles();
+	if (true){
+		root.setId(Long.parseLong(root.getPath()));
+		root.setPath(fromId(root.getId()));
+	}
+    File[] list = Utils.trapNull(new File(root.getPath()).listFiles());
     return toFileNodes(list);
   }
   
@@ -98,8 +119,10 @@ public class FileMgt {
   /**
    * Read & parse, see also
    * http://stackoverflow.com/questions/6623974/parsing-log4j-layouts-from-log-files
+ * @param col 
+ * @param sep 
    */
-  public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit) {
+  public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit, String sep, int col) {
     List<Line>  result = new ArrayList<Line>();
     Data<List<Line>> dataRes = new Data<List<Line>>(result);
       BufferedReader lBis = null;
@@ -115,7 +138,7 @@ public class FileMgt {
                 start--;
               }else{
                 if(doProcess)
-                    result.add(new Line(i++, line) );
+                    result.add(new Line(total, line,sep,col) );
                 limit--;
                 if(limit==0) doProcess=false;
               }
@@ -125,6 +148,7 @@ public class FileMgt {
       }
       catch ( IOException e ) {
           log.error( "Can't read file "+ pMsg, e );
+          throw new StandardException(e.getMessage(),e); 
       }
       finally {
           try {

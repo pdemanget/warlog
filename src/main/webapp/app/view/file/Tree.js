@@ -6,7 +6,7 @@ Ext.define('app.view.file.Tree', {
 	rootVisible: false,
 	columns: [
         {xtype:'treecolumn', header: 'Name',  dataIndex: 'name',  width:200}     
-        ,{header: 'Length', dataIndex: 'length', width:250}
+        ,{header: 'Length', dataIndex: 'length', flex: 1}
       ]
 	
 })

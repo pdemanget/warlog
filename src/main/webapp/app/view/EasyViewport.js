@@ -31,7 +31,7 @@ items: [
     region:'west',
     margins: '5 0 0 0',
     cmargins: '5 5 0 0',
-    width: 250,
+    width: 300,
     minSize: 100,
     maxSize: 500
 	,xtype: 'filetree'
@@ -40,7 +40,9 @@ items: [
     collapsible: false,
     region:'center',
     margins: '5 0 0 0',
-	xtype: 'filelist'
+    flex: 1,
+	xtype: 'filelist',
+	id:'maincontent'
 }]	
 
 });
