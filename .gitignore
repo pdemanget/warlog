@@ -1,6 +1,7 @@
 ext
 *.class
 *~
+*.orig
 # Package Files #
 *.jar
 *.war

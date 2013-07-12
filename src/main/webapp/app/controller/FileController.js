@@ -28,11 +28,13 @@ Ext.define('app.controller.FileController', {
     
     treeClick: function(e, f) {
 		var path = f.data.path;
+		//todo if ! f.folder
 		console.log("load path "+ path);
 //		this.getStore("Lines").load({params:{path:path}});
 		var store=this.getStore("Lines");
 		store.getProxy().extraParams= {path:path};
 		store.load();
+		//todo store.loadPage()...
 
 	},
 
