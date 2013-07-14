@@ -5,7 +5,7 @@ package fr.warlog.bus;
  * 
  * @author Philippe
  */
-public class FileNode {
+public class FileNode implements Comparable<FileNode>{
 	private long id;
 	private String name;
 	private String path;
@@ -60,6 +60,13 @@ public class FileNode {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	@Override
+	public int compareTo(FileNode o) {
+		//first folders then files
+		if(isFolder() ^ o.isFolder()) return isFolder()?-1:1;
+		return name.compareTo(o.name);
 	}
 
 }

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.warlog.bus.FileMgt;
+import fr.warlog.util.Data;
 import fr.warlog.util.JSONUtils;
+import fr.warlog.util.StandardException;
 
 /**
  * read a file, & returns as lines | raw data 
@@ -36,12 +38,15 @@ public class FileServlet extends HttpServlet {
     int start = toInt(req.getParameter("start"),0);
     int limit = toInt(req.getParameter("limit"),-1);
     String result = null;
+    try{
     if(raw != null){
       result = new FileMgt().readFile(path);
     }else{
       result = JSONUtils.toJsonString(new FileMgt().readFileLines(path,start,limit,sep,col));
     }
-    
+    }catch (OutOfMemoryError e){
+    	result=JSONUtils.toJsonError(e);
+    }
     resp.getOutputStream().write(result.getBytes("UTF-8"));
   }
   

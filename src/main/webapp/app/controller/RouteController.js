@@ -51,8 +51,14 @@ Ext.define('app.controller.RouteController', {
 //			mainContainer.add(this.screenmap[token]);
 //		}
 //		mainContainer.getLayout().setActiveItem(mainContainer.items.indexOf(this.screenmap[token]));
-		if(token!='')
-		this.getController('FileController').treeClick('',{data:{path:token}});
+		if(token!=''){
+			var tokens=token.split('?');
+			try{
+				var control=this.getController(tokens[1]+'Controller');
+			}catch (e){}
+			if (control)
+				control.open( tokens[0] );
+		}
 	
 	}
 	

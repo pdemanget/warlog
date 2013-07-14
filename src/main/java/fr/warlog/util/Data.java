@@ -8,6 +8,7 @@ public class Data<T> {
   private T data;
   private boolean success=true;
   private Integer total;
+  private String message;
 
   public Data(T o) {
     data=o;
@@ -32,5 +33,17 @@ public class Data<T> {
   public boolean isSuccess() {
     return success;
   }
+
+public void setSuccess(boolean success) {
+	this.success = success;
+}
+
+public String getMessage() {
+	return message;
+}
+
+public void setMessage(String message) {
+	this.message = message;
+}
   
 }

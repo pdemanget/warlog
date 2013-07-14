@@ -1,6 +1,7 @@
-ext
+*debug.js
 *.class
 *~
+*.orig
 # Package Files #
 *.jar
 *.war

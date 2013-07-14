@@ -9,7 +9,7 @@
     <script type="text/javascript" src="./js/i18n.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/js-yaml.js" charset="utf-8"></script>
 	
-	<script type="text/javascript" src="./ext/ext-all-debug.js" charset="utf-8"></script>
+	<script type="text/javascript" src="./ext/ext-all.js" charset="utf-8"></script>
 	<script type="text/javascript" src="app.js" charset="utf-8"></script>
 	
 </head>

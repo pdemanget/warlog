@@ -21,17 +21,22 @@ public class FolderServlet extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     resp.setCharacterEncoding("UTF-8");
     
-    String path = req.getParameter("node");
     List<FileNode> list;
-    if(path==null||"root".equals(path)){
-      list=new FileMgt().roots();
-    }else{
-      FileNode root = new FileNode();
-      root.setPath(path);
-      list = new FileMgt().list(root);
-    }
+	try {
+		String path = req.getParameter("node");
+		if(path==null||"root".equals(path)){
+		  list=new FileMgt().roots();
+		}else{
+		  FileNode root = new FileNode();
+		  root.setPath(path);
+		  list = new FileMgt().list(root);
+		}
+		 resp.getOutputStream().write(JSONUtils.toJsonStringWithData(list).getBytes("UTF-8"));
+	} catch (Exception e) {
+		resp.getOutputStream().write(JSONUtils.toJsonError(e).getBytes("UTF-8"));
+	}
     
-    resp.getOutputStream().write(JSONUtils.toJsonStringWithData(list).getBytes("UTF-8"));
+   
   }
   
 

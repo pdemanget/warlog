@@ -4,7 +4,9 @@
 Ext.define('app.view.file.List' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.filelist',
-
+    viewConfig: {
+        emptyText: 'No records'
+    },
     title : 'list ...',
     store: 'Lines',
     dockedItems: [{

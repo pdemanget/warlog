@@ -81,5 +81,13 @@ public class JSONUtils {
 		logger.error(string, e);
 
 	}
+
+	public static String toJsonError(Throwable e) {
+	   	e.printStackTrace();
+    	Data<Object> data = new Data<>(null);
+    	data.setSuccess(false);
+    	data.setMessage(e.getMessage());
+		return toJsonString(data);
+	}
 	
 }

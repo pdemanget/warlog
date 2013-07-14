@@ -6,14 +6,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.apache.log4j.Logger;
 
 import fr.warlog.util.Data;
-import fr.warlog.util.JSONUtils;
 import fr.warlog.util.MainUtils;
 import fr.warlog.util.StandardException;
 import fr.warlog.util.Utils;
@@ -73,13 +76,20 @@ public class FileMgt {
     return fileNode;
   }
 
+  /**
+   * ls.
+   * @param root
+   * @return
+   */
   public List<FileNode> list(FileNode root) {
 	if (true){
 		root.setId(Long.parseLong(root.getPath()));
 		root.setPath(fromId(root.getId()));
 	}
     File[] list = Utils.trapNull(new File(root.getPath()).listFiles());
-    return toFileNodes(list);
+    List<FileNode> fileNodes = toFileNodes(list);
+    Collections.sort(fileNodes);
+	return fileNodes;
   }
   
   
@@ -87,12 +97,16 @@ public class FileMgt {
    * Lit le fichier à envoyer 
    */
   public  String readFile( String pMsg ) {
+	 
       StringBuffer result = new StringBuffer();
       BufferedReader lBis = null;
       try {
           String line;
-
-          lBis = new BufferedReader( new InputStreamReader( new FileInputStream( pMsg ), "UTF-8" ) );
+          if(pMsg.endsWith(".gz")){
+        	  lBis = new BufferedReader( new InputStreamReader( new ZipInputStream( new FileInputStream( pMsg )), "UTF-8" ) );
+    	  }else{
+    		  lBis = new BufferedReader( new InputStreamReader( new FileInputStream( pMsg ), "UTF-8" ) );
+    	  }
           while ( ( line = lBis.readLine() ) != null ) {
               result.append( line );
               result.append( "\n" );
@@ -111,13 +125,16 @@ public class FileMgt {
           }
           catch ( IOException e ) {
               log.error( "Can't close file "+ pMsg, e );
+              throw new StandardException(e.getMessage(), e);
           }
       }
 
       return result.toString();
   }
   
-  /**
+  
+
+/**
    * Read & parse, see also
    * http://stackoverflow.com/questions/6623974/parsing-log4j-layouts-from-log-files
  * @param col 
@@ -130,8 +147,13 @@ public class FileMgt {
       try {
           String line;
 
-          lBis = new BufferedReader( new InputStreamReader( new FileInputStream( pMsg ), "UTF-8" ) );
-          int i=0;
+          if(pMsg.endsWith(".gz")){
+        	  GZIPInputStream zipIS = new GZIPInputStream( new FileInputStream( pMsg ));
+//        	  ZipEntry nextEntry = zipIS.getNextEntry();
+			lBis = new BufferedReader( new InputStreamReader( zipIS, "UTF-8" ) );
+    	  }else{
+    		  lBis = new BufferedReader( new InputStreamReader( new FileInputStream( pMsg ), "UTF-8" ) );
+    	  }
           boolean doProcess=true;
           int total=0;
           while ( ( line = lBis.readLine() ) != null ) {
