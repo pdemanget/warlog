@@ -9,8 +9,8 @@ note on ExtJS:
 change list:
 [ ] : last page tail option.
 [ ] : dynamic parsing server-side
-[ ] : line number in file
-[ ] : use hash url
-[ ] : only call file url on files
+[X] : line number in file
+[X] : use hash url
+[X] : only call file url on files
 [ ] : set more logs
 [X] : Use id instead of path for identifier (tree bug)

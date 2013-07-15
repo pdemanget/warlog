@@ -4,7 +4,7 @@ Ext.define('app.store.Lines', {
     autoLoad: false,
     
     proxy: {
-        type: 'ajax',
+        type: 'appajax',
         api: {
         	read: 'file'
             //read: 'data/lines.json'
