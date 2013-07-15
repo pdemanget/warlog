@@ -10,23 +10,23 @@ defaults: {
     bodyStyle: 'padding:15px'
 },
 items: [
+//{
+//    title: 'Menu',
+//    region: 'north',
+//    height: 50,
+//    minSize: 25,
+//    maxSize: 250,
+//    cmargins: '5 0 0 0'
+//}
+//	,{
+//    title: 'Footer',
+//    region: 'south',
+//    height: 50,
+//    minSize: 25,
+//    maxSize: 250,
+//    cmargins: '5 0 0 0'
+//},
 {
-    title: 'Menu',
-    region: 'north',
-    height: 50,
-    minSize: 25,
-    maxSize: 250,
-    cmargins: '5 0 0 0'
-}
-//]	
-	,{
-    title: 'Footer',
-    region: 'south',
-    height: 50,
-    minSize: 25,
-    maxSize: 250,
-    cmargins: '5 0 0 0'
-},{
     title: 'Navigation',
     region:'west',
     margins: '5 0 0 0',

@@ -44,7 +44,7 @@ public class FileServlet extends HttpServlet {
     }else{
       result = JSONUtils.toJsonString(new FileMgt().readFileLines(path,start,limit,sep,col));
     }
-    }catch (OutOfMemoryError e){
+    }catch (Exception e){
     	result=JSONUtils.toJsonError(e);
     }
     resp.getOutputStream().write(result.getBytes("UTF-8"));

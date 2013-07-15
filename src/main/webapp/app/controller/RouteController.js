@@ -54,7 +54,8 @@ Ext.define('app.controller.RouteController', {
 		if(token!=''){
 			var tokens=token.split('?');
 			try{
-				var control=this.getController(tokens[1]+'Controller');
+				if(tokens[1]) 
+					var control=this.getController(tokens[1]+'Controller');
 			}catch (e){}
 			if (control)
 				control.open( tokens[0] );

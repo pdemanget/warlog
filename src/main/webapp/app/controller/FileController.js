@@ -30,15 +30,21 @@ Ext.define('app.controller.FileController', {
     
     treeClick: function(e, f) {
 		var path = f.data.path;
+		var route= this.getController('RouteController');
+		route.open(f.data.path+"?"+(f.data.folder?"Folder":"File"));
+	},
+
+	/**
+	 * inderictly called from treeclick.
+	 */
+	open: function(path){
 		console.log("load path "+ path);
-//		this.getStore("Lines").load({params:{path:path}});
 		var store=this.getStore("Lines");
 		store.getProxy().extraParams= {path:path};
 		store.on('exception',function( store, records, options ){
 			console.log('EXCEPTION !!!');
 		});
 		store.loadPage(1);
-
 	},
 
     edit: function(grid, record) {

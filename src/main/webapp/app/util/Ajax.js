@@ -12,11 +12,11 @@ Ext.define('app.util.Ajax', {
             if (request.responseText != undefined)
             {
                 // responseText was returned, decode it
-                responseObj = Ext.decode(request.responseText,true);
-                if (responseObj != null && responseObj.msg != undefined)
+                var responseObj = Ext.decode(request.responseText,true);
+                if (responseObj != null && responseObj.message != undefined)
                 {
                     // message was returned
-                    Ext.Msg.alert('Error',responseObj.msg);
+                    Ext.Msg.alert('Error',responseObj.message);
                 }
                 else
                 {
