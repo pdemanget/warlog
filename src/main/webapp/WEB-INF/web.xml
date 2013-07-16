@@ -28,6 +28,14 @@
     <servlet-name>Folder</servlet-name>
     <url-pattern>/folder/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Push</servlet-name>
+    <servlet-class>fr.warlog.web.PushServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Push</servlet-name>
+      <url-pattern>/push/*</url-pattern>
+  </servlet-mapping>
   
    <filter>
       <filter-name>encodingFilter</filter-name>
