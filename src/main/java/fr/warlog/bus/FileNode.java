@@ -1,5 +1,7 @@
 package fr.warlog.bus;
 
+import java.util.Date;
+
 /**
  * File model to be serialized
  * 
@@ -9,6 +11,7 @@ public class FileNode implements Comparable<FileNode>{
 	private long id;
 	private String name;
 	private String path;
+	private Date modified;
 	private boolean folder;
 	private boolean leaf;
 	private long length;
@@ -67,6 +70,14 @@ public class FileNode implements Comparable<FileNode>{
 		//first folders then files
 		if(isFolder() ^ o.isFolder()) return isFolder()?-1:1;
 		return name.compareTo(o.name);
+	}
+
+	public Date getModified() {
+		return modified;
+	}
+
+	public void setModified(Date modified) {
+		this.modified = modified;
 	}
 
 }

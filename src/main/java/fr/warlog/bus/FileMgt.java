@@ -5,11 +5,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.nio.file.Watchable;
+import java.nio.file.WatchEvent.Kind;
+import java.nio.file.WatchEvent.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipInputStream;
 
@@ -19,6 +27,8 @@ import fr.warlog.util.Data;
 import fr.warlog.util.MainUtils;
 import fr.warlog.util.StandardException;
 import fr.warlog.util.Utils;
+
+import static java.nio.file.StandardWatchEventKinds.*;
 
 /**
  * File Management
@@ -186,5 +196,7 @@ public class FileMgt {
 
       return dataRes;
   }
+  
+ 
 
 }
