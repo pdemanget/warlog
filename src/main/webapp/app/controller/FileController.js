@@ -45,6 +45,7 @@ Ext.define('app.controller.FileController', {
 			console.log('EXCEPTION !!!');
 		});
 		store.loadPage(1);
+		this.waitEvent(path);
 	},
 
     edit: function(grid, record) {
@@ -62,5 +63,37 @@ Ext.define('app.controller.FileController', {
         record.set(values);
         win.close();
         this.getFilesStore().sync();
+    },
+    
+    waitEvent: function waitEvent(eventName){
+        //stop last one
+        if (this.request){
+            Ext.Ajax.abort(request);
+        }
+        //start new one
+        this.waitEventIntern(eventName);
+    },
+    
+    waitEventIntern: function waitEventItern(eventName){
+        
+
+        this.request=Ext.Ajax.request({
+            url: 'push',
+            timeout : 600*1000,
+            method: "GET",
+            params: {
+                event: eventName
+            },
+            scope: this,
+            success: function(response){
+                var text = response.responseText;
+                console.log("TODO LOAD "+eventName);
+                var store=this.getStore("Lines");
+                store.load();
+            },
+            callback: function(){
+                this.waitEventIntern(eventName);
+            }
+        });
     }
 });

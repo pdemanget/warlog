@@ -1,8 +1,6 @@
 Ext.define('app.view.EasyViewport', {
     extend: 'Ext.container.Viewport',
-//    constructor:function(){
-//    	alert('PLEASE SAY SOMETHING viewport');
-//    },
+
 layout:'border',
 defaults: {
     collapsible: true,
