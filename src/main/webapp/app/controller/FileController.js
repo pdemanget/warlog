@@ -68,7 +68,7 @@ Ext.define('app.controller.FileController', {
     waitEvent: function waitEvent(eventName){
         //stop last one
         if (this.request){
-            Ext.Ajax.abort(request);
+            Ext.Ajax.abort( this.request);
         }
         //start new one
         this.waitEventIntern(eventName);
@@ -87,7 +87,7 @@ Ext.define('app.controller.FileController', {
             scope: this,
             success: function(response){
                 var text = response.responseText;
-                console.log("TODO LOAD "+eventName);
+                Ext.log("LOAD "+eventName);
                 var store=this.getStore("Lines");
                 store.load();
             },
