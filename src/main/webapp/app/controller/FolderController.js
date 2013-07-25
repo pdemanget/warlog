@@ -35,8 +35,14 @@ Ext.define('app.controller.FolderController', {
 		var relativePath="";
 		for(var i in folders){
 		    if(! node.isExpanded()){ node.expand()}
-		    relativePath+=node.getPath();
-		    node.findChild("path",relativePath);
+		    relativePath+="/"+folders[i];
+		    //node.findChild("path",relativePath);
+		    node = node.findChildBy(
+		            function(anode){
+		                console.log(anode.data.path+" "+relativePath);
+		                return anode.data.name===folders[i];
+		    });
+		    
 		}
 		node.set('checked', true); 
 	}
