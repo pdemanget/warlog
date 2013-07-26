@@ -52,6 +52,26 @@
 			<version>1.2</version>
 		</dependency>
 	</dependencies>
+	<properties>
+		<webXmlPath>path/to/default/webXml</webXmlPath>
+	</properties>
+	<profiles>
+		<profile>
+			<id>anonymous</id>
+			<properties>
+				<webXmlPath>WEB-INF/web.xml.tomcat</webXmlPath>
+			</properties>
+		</profile>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>tomcat</id>
+			<properties>
+				<webXmlPath>WEB-INF/web.xml.tomcat</webXmlPath>
+			</properties>
+		</profile>
+	</profiles>
 	<build>
 		<finalName>warlog</finalName>
 		<resources>

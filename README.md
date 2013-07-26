@@ -20,3 +20,6 @@ change list:
 
 known bugs
 [ ] : need to reload page 1 when file content is reduced (on log roll)
+
+Development note:
+- Jetty: uses jettyRunner. need to remove tomcat security annotation uasage: java -jer jetty-runner warlog.war
