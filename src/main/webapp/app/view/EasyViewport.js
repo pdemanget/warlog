@@ -24,6 +24,7 @@ items: [
 //    maxSize: 250,
 //    cmargins: '5 0 0 0'
 //},
+//http://www.gnu.org/graphics/gplv3-88x31.png
 {
     title: 'Navigation',
     region:'west',
