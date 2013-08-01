@@ -11,10 +11,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.warlog.util.Utils;
+
 /**
  * Get the hook on modified files
  * 
- * @author ABC-OBJECTIF\philippe.demanget
+ * @author philippe demanget
  */
 public class FileHookMgt {
 
@@ -27,7 +29,7 @@ public class FileHookMgt {
 		WatchService watcher = FileSystems.getDefault().newWatchService();
 		path.register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
 		WatchKey poll = watcher.take();
-		System.out.println(poll.pollEvents().get(0));
+		Utils.log(""+poll.pollEvents().get(0));
 	}
 
 	public static void trackFile(String pathname,Map<String, Object> events ) throws IOException,
@@ -44,7 +46,7 @@ public class FileHookMgt {
 			WatchKey poll = watcher.take();
 			for (WatchEvent evt : poll.pollEvents()) {
 				if (((Path) evt.context()).toString().equals(filename)) {
-					System.out.println("modified" + pathname);
+					Utils.log("modified" + pathname);
 					synchronized(events){
 						FileNode node = new FileNode();
 						node.setPath(pathname);
@@ -55,7 +57,7 @@ public class FileHookMgt {
 					watcher.close();
 					return;
 				} else {
-					System.out.println("skipping modification " + evt.context());
+					Utils.log("skipping modification " + evt.context());
 					watcher.close();
 				}
 			}

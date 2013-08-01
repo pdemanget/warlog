@@ -21,5 +21,9 @@ public class Utils {
 	public static  File[] trapNull(File[] p){
 		return (File[])( p==null? newArray(File.class):p);
 	}
+	
+	public static void log(String msg){
+//		System.out.println(msg);
+	}
 
 }

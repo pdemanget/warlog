@@ -15,6 +15,7 @@ import java.nio.file.WatchEvent.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -27,7 +28,6 @@ import fr.warlog.util.Data;
 import fr.warlog.util.MainUtils;
 import fr.warlog.util.StandardException;
 import fr.warlog.util.Utils;
-
 import static java.nio.file.StandardWatchEventKinds.*;
 
 /**
@@ -37,7 +37,7 @@ import static java.nio.file.StandardWatchEventKinds.*;
  */
 public class FileMgt {
   private static final Logger log = Logger.getLogger(FileMgt.class);
-  private static Map<String,Long> mapId=new HashMap<>();
+  private static Map<String,Long> mapId=new Hashtable<>();
   private static long lastId=1;
   
   public List<FileNode> roots() {

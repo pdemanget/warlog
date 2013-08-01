@@ -34,14 +34,17 @@ Ext.define('app.controller.FolderController', {
 		var folders = path.split('/');
 		var relativePath="";
 		for(var i in folders){
-		    if(! node.isExpanded()){ node.expand()}
-		    relativePath+="/"+folders[i];
-		    //node.findChild("path",relativePath);
-		    node = node.findChildBy(
-		            function(anode){
-		                console.log(anode.data.path+" "+relativePath);
-		                return anode.data.name===folders[i];
-		    });
+		    if(! node.isExpanded()){ node.expand(
+		            function(){this.open(path);},this);
+		    }else{
+    		    relativePath+="/"+folders[i];
+    		    //node.findChild("path",relativePath);
+    		    node = node.findChildBy(
+    		            function(anode){
+    		                console.log(anode.data.path+" "+relativePath);
+    		                return anode.data.name.replace('/','')===folders[i];
+    		    });
+		    }
 		    
 		}
 		node.set('checked', true); 

@@ -17,7 +17,7 @@ Ext.define('app.view.file.List' ,{
 
     columns: [
          {header: 'N°',  dataIndex: 'id',  width:50}
-        ,{header: 'A',  dataIndex: 'col1',  flex: 1}
+        ,{header: 'A',  dataIndex: 'col1',  flex: 1, renderer: 'htmlEncode'}
 //        ,{header: 'B', dataIndex: 'col2', flex: 1}
 //        ,{header: 'C', dataIndex: 'col3', flex: 1}
     ]
