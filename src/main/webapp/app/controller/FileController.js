@@ -13,7 +13,6 @@ Ext.define('app.controller.FileController', {
     requires: ['app.util.Ajax'],
 
     init: function() {
-    	//alert('PLEASE SAY SOMETHING');
         this.control({
         	'filetree dataview': {
                 itemdblclick: this.treeClick
@@ -46,6 +45,9 @@ Ext.define('app.controller.FileController', {
 		});
 		store.loadPage(1);
 		this.waitEvent(path);
+		//Synchronize with package view
+		this.getController('FolderController').open(path);
+		
 	},
 
     edit: function(grid, record) {

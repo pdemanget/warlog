@@ -1,3 +1,7 @@
+Ext.Loader.setConfig({
+    disableCaching: false
+});
+
 Ext.application({
     name: 'app',
     // automatically create an instance of AM.view.Viewport

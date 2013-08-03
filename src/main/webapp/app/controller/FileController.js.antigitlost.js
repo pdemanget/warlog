@@ -109,7 +109,7 @@ Ext.define('app.controller.FileController', {
 			console.log('EXCEPTION !!!');
 		});
 		store.loadPage(1);
-
+		getController('FolderController').open(path);
 //		store.load({
 //			    page: 1,
 //			    start: 0
