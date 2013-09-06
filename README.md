@@ -9,6 +9,13 @@ Author : Philippe DEMANGET
 
 note on ExtJS:  
 	this is an external library to add to ext/ folder of the webapp. You can get its source from sencha or from dependencies of the pom.xml, just unzip the jar (org.webjars/extjs)  
+
+installation Note:
+this war file has been tested under java7 environnement with 4 Application server:
+  Tomcat: 	add war to tomcat/webapps
+  JBoss: 	add war file in jboss-eap-6.1/standalone/deployments/
+  Glassfish: 	add war file to glassfishv3/glassfish/domains/domain1/autodeploy
+  Jetty: 	launch "java -jar jetty-runner warlog.war"
   
 change list:  
 - [X] : last page tail option.  
@@ -26,4 +33,8 @@ known bugs
 - [ ] : need to reload page 1 when file content is reduced (on log roll)  
   
 Development note:  
-- Jetty: uses jettyRunner. need to remove tomcat security annotation usage: java -jar jetty-runner warlog.war  
+- security: this only works in tomcat, and we need to specify a different web.xml
+
+logs path:
+glassfish:http://localhost:8080/warlog/#/opt/glassfishv3/glassfish/domains/domain1/logs/server.log?File
+tomcat:/var/log/tomcat
