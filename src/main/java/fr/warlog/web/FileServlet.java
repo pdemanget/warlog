@@ -34,6 +34,7 @@ public class FileServlet extends HttpServlet {
     String path = req.getParameter("path");
     String raw = req.getParameter("raw");
     String sep = req.getParameter("sep");
+    String pattern = req.getParameter("pattern");
     int col = toInt(req.getParameter("col"),1);
     int start = toInt(req.getParameter("start"),0);
     int limit = toInt(req.getParameter("limit"),-1);
@@ -42,7 +43,7 @@ public class FileServlet extends HttpServlet {
     if(raw != null){
       result = new FileMgt().readFile(path);
     }else{
-      result = JSONUtils.toJsonString(new FileMgt().readFileLines(path,start,limit,sep,col));
+      result = JSONUtils.toJsonString(new FileMgt().readFileLines(path,start,limit,sep,col, pattern));
     }
     }catch (Exception e){
     	result=JSONUtils.toJsonError(e);

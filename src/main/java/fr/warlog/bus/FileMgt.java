@@ -102,6 +102,8 @@ public class FileMgt {
   }
   
   
+  
+  
   /**
    * Lit le fichier à envoyer 
    */
@@ -149,7 +151,7 @@ public class FileMgt {
  * @param col 
  * @param sep 
    */
-  public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit, String sep, int col) {
+  public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit, String sep, int col, String pattern) {
     List<Line>  result = new ArrayList<Line>();
     Data<List<Line>> dataRes = new Data<List<Line>>(result);
       BufferedReader lBis = null;
@@ -166,6 +168,10 @@ public class FileMgt {
           boolean doProcess=true;
           int total=0;
           while ( ( line = lBis.readLine() ) != null ) {
+              if(pattern !=null && !line.matches(pattern)){
+                  continue;
+              }
+              
               if(start>0){
                 start--;
               }else{

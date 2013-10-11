@@ -1,0 +1,3 @@
+"sdfsdfsdfsdffstestsdfsfsdfdsf".matches(".*test.*")(boolean) true
+
+(boolean) false

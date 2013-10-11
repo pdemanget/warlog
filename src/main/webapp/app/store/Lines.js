@@ -2,6 +2,7 @@ Ext.define('app.store.Lines', {
     extend: 'Ext.data.Store',
     model: 'app.model.Line',
     autoLoad: false,
+    pageSize: 100,
     
     proxy: {
         type: 'appajax',
