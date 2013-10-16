@@ -5,20 +5,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
-import java.nio.file.Watchable;
-import java.nio.file.WatchEvent.Kind;
-import java.nio.file.WatchEvent.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipInputStream;
 
@@ -28,7 +21,6 @@ import fr.warlog.util.Data;
 import fr.warlog.util.MainUtils;
 import fr.warlog.util.StandardException;
 import fr.warlog.util.Utils;
-import static java.nio.file.StandardWatchEventKinds.*;
 
 /**
  * File Management
@@ -151,7 +143,7 @@ public class FileMgt {
  * @param col 
  * @param sep 
    */
-  public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit, String sep, int col, String pattern) {
+  public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit, String sep, int col, String spattern) {
     List<Line>  result = new ArrayList<Line>();
     Data<List<Line>> dataRes = new Data<List<Line>>(result);
       BufferedReader lBis = null;
@@ -159,7 +151,8 @@ public class FileMgt {
           String line;
 
           if(pMsg.endsWith(".gz")){
-        	  GZIPInputStream zipIS = new GZIPInputStream( new FileInputStream( pMsg ));
+                @SuppressWarnings("resource")
+                GZIPInputStream zipIS = new GZIPInputStream( new FileInputStream(pMsg));
 //        	  ZipEntry nextEntry = zipIS.getNextEntry();
 			lBis = new BufferedReader( new InputStreamReader( zipIS, "UTF-8" ) );
     	  }else{
@@ -167,11 +160,12 @@ public class FileMgt {
     	  }
           boolean doProcess=true;
           int total=0;
+          Pattern pattern = (spattern == null)?null:Pattern.compile(spattern);
           while ( ( line = lBis.readLine() ) != null ) {
-              if(pattern !=null && !line.matches(pattern)){
-                  continue;
+              if(pattern !=null ){
+                  Matcher matcher = pattern.matcher(line);
+                  if(! matcher.find()) continue;
               }
-              
               if(start>0){
                 start--;
               }else{
