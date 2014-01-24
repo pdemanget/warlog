@@ -33,6 +33,7 @@ public class FolderServlet extends HttpServlet {
 		}
 		 resp.getOutputStream().write(JSONUtils.toJsonStringWithData(list).getBytes("UTF-8"));
 	} catch (Exception e) {
+		e.printStackTrace();
 		resp.getOutputStream().write(JSONUtils.toJsonError(e).getBytes("UTF-8"));
 	}
     

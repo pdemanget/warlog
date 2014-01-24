@@ -1,3 +1,10 @@
-"sdfsdfsdfsdffstestsdfsfsdfdsf".matches(".*test.*")(boolean) true
+"sdfsdfsdfsdffstestsdfsfsdfdsf".matches("test")(boolean) false(boolean) true
 
 (boolean) false
+
+
+Syntax error on token ")", delete this tokenString.format("%02x","ç".getBytes("UTF-8")[0])
+String.format("%02x","ç".getBytes("UTF-8")[1])
+String.format("%02x","ç".getBytes("ISO-8859-1")[0])
+
+"ç".getBytes("ISO-8859-1").length
