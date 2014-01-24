@@ -9,30 +9,6 @@ defaults: {
 },
 items: [
 {
-    title: 'Menu',
-    region: 'north',
-    height: 50,
-    minSize: 25,
-    maxSize: 250,
-    cmargins: '5 0 0 0',
-    xtype: 'panel',
-    items:[
-    	{
-		  xtype: 'box',
-		  autoEl: {tag: 'a', href: '#/var/log/tomcat/catalina.out?File', html: 'catalina.out'}
-		}
-    ]
-},
-//	,{
-//    title: 'Footer',
-//    region: 'south',
-//    height: 50,
-//    minSize: 25,
-//    maxSize: 250,
-//    cmargins: '5 0 0 0'
-//},
-//http://www.gnu.org/graphics/gplv3-88x31.png
-{
     title: 'Navigation',
     region:'west',
     margins: '5 0 0 0',
