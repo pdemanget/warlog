@@ -8,14 +8,21 @@ defaults: {
     bodyStyle: 'padding:15px'
 },
 items: [
-//{
-//    title: 'Menu',
-//    region: 'north',
-//    height: 50,
-//    minSize: 25,
-//    maxSize: 250,
-//    cmargins: '5 0 0 0'
-//}
+// {
+//     title: 'Menu',
+//     region: 'north',
+//     height: 50,
+//     minSize: 25,
+//     maxSize: 250,
+//     cmargins: '5 0 0 0',
+//     xtype: 'panel',
+//     items:[
+//     	{
+// 		  xtype: 'box',
+// 		  autoEl: {tag: 'a', href: '#/var/log/tomcat/catalina.out?File', html: 'catalina.out'}
+// 		}
+//     ]
+// },
 //	,{
 //    title: 'Footer',
 //    region: 'south',
