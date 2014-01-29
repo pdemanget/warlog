@@ -23,6 +23,12 @@ Ext.define('app.controller.FileController', {
             },
             'fileedit button[action=save]': {
                 click: this.updateUser
+            },
+            'filelist toolbar button': {
+            	click: this.tbbutton
+            },
+            'form textfield': {
+            	specialkey: this.specialkey
             }
         });
     },
@@ -39,7 +45,8 @@ Ext.define('app.controller.FileController', {
 	open: function(path){
 		console.log("load path "+ path);
 		var store=this.getStore("Lines");
-		store.getProxy().extraParams= {path:path};
+		this.params={path:path};
+		store.getProxy().extraParams=this.params ;
 		store.on('exception',function( store, records, options ){
 			console.log('EXCEPTION !!!');
 		});
@@ -97,5 +104,24 @@ Ext.define('app.controller.FileController', {
                 this.waitEventIntern(eventName);
             }
         });
+    },
+    
+    tbbutton: function(){
+    	this.getController('FolderController').
+    		open('D:/batsh/apache-tomcat-7.0.41/log');
+    },
+    
+    specialkey: function(field, e){
+        // e.HOME, e.END, e.PAGE_UP, e.PAGE_DOWN,
+        // e.TAB, e.ESC, arrow keys: e.LEFT, e.RIGHT, e.UP, e.DOWN
+        if (e.getKey() == e.ENTER) {
+            //var form = field.up('form').getForm();
+            //form.submit();
+        	var pattern=field.getValue();
+        	var store=this.getStore("Lines");
+        	this.params.pattern=pattern;
+        	store.getProxy().extraParams=this.params ;
+    		store.loadPage(1);
+        }
     }
 });

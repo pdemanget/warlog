@@ -13,8 +13,22 @@ Ext.define('app.view.file.List' ,{
         xtype: 'pagingtoolbar',
         dock: 'bottom',
         store: 'Lines',
-        displayInfo: true}],
-
+        displayInfo: true},
+        {
+            xtype: 'toolbar',
+            dock: 'top',
+            items: [
+                '->',
+                {
+                    text: 'catalina',
+                    itemId: '1'
+                }
+            ]
+        }
+        ],
+//--
+//--        
+        
     columns: [
          {header: 'line',  dataIndex: 'id',  width:50}
         ,{header: 'A',  dataIndex: 'col1',  flex: 1, renderer: 'htmlEncode'}
