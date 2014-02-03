@@ -180,6 +180,10 @@ public class FileMgt {
       }
       catch ( IOException e ) {
           log.error( "Can't read file "+ pMsg, e );
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e1) {
+          }
           throw new StandardException(e.getMessage(),e); 
       }
       finally {

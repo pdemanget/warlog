@@ -44,6 +44,7 @@ Ext.define('app.controller.FileController', {
 	 */
 	open: function(path){
 		console.log("load path "+ path);
+		if(!path) return;
 		var store=this.getStore("Lines");
 		this.params={path:path};
 		store.getProxy().extraParams=this.params ;
