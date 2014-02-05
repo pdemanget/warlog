@@ -18,6 +18,12 @@ Ext.define('app.view.file.List' ,{
             xtype: 'toolbar',
             dock: 'top',
             items: [
+                {
+                	xtype: 'textfield',
+                    name: 'pattern',
+        	        fieldLabel: 'Filter ',
+        	
+                },
                 '->',
                 {
                     text: 'catalina',

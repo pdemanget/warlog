@@ -9,33 +9,6 @@ defaults: {
 },
 items: [
 {
-    title: 'Filter',
-    region: 'north',
-    height: 75,
-    minSize: 25,
-    maxSize: 250,
-    cmargins: '0 0 0 0',
-    padding: 2,
-    collapsed: true,	
-    xtype: 'form',
-	items : 
-		[ {
-			xtype : 'textfield',
-	        name: 'pattern',
-	        fieldLabel: 'Regex pattern to filter lines of the file',
-	        padding: 2
-		} ]
-	},
-// ,{
-// title: 'Footer',
-// region: 'south',
-//    height: 50,
-//    minSize: 25,
-//    maxSize: 250,
-//    cmargins: '5 0 0 0'
-//},
-//http://www.gnu.org/graphics/gplv3-88x31.png
-{
     title: 'Navigation',
     region:'west',
     margins: '5 0 0 0',
@@ -51,7 +24,8 @@ items: [
     margins: '5 0 0 0',
     flex: 1,
 	xtype: 'filelist',
-	id:'maincontent'
+	id:'maincontent',
+	
 }]	
 
 });

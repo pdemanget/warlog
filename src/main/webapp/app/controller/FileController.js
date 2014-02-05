@@ -27,7 +27,7 @@ Ext.define('app.controller.FileController', {
             'filelist toolbar button': {
             	click: this.tbbutton
             },
-            'form textfield': {
+            'filelist textfield': {
             	specialkey: this.specialkey
             }
         });
