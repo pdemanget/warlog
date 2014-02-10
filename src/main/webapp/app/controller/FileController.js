@@ -1,10 +1,12 @@
+var SERVER_PUSH_ENABLED=false;
+
 /**
  * Controller that manage links.
  */
 Ext.define('app.controller.FileController', {
     extend: 'Ext.app.Controller',
 
-    stores: ['Lines','FileTree'],
+    stores: ['Lines','FileTree', 'Links'],
 
     models: ['File','Line'],
 
@@ -13,6 +15,7 @@ Ext.define('app.controller.FileController', {
     requires: ['app.util.Ajax'],
 
     init: function() {
+    	var me=this;
         this.control({
         	'filetree dataview': {
                 itemdblclick: this.treeClick
@@ -29,7 +32,18 @@ Ext.define('app.controller.FileController', {
             },
             'filelist textfield': {
             	specialkey: this.specialkey
+            },
+            'tab': {
+            	click: this.tabclick,
+            	close: this.tabclose
+            },
+            'tabpanel':{
+            	afterrender: this.loadTabs
+            },
+            'filelist':{
+            	afterrender: this.loadTab
             }
+
         });
     },
     
@@ -45,6 +59,19 @@ Ext.define('app.controller.FileController', {
 	open: function(path){
 		console.log("load path "+ path);
 		if(!path) return;
+		var tabpanel = Ext.getCmp('maincontent');
+		this.tabs=this.tabs||[];
+		if(!this.tabs[path]){
+			this.tabs[path]=tabpanel.add({
+			    title: path,
+			    path: path,
+			    layout: 'fit',
+				xtype: 'filelist',
+				closable: true
+			});
+		}
+		tabpanel.setActiveTab(this.tabs[path]);
+		
 		var store=this.getStore("Lines");
 		this.params={path:path};
 		store.getProxy().extraParams=this.params ;
@@ -55,7 +82,12 @@ Ext.define('app.controller.FileController', {
 		this.waitEvent(path);
 		//Synchronize with package view
 		this.getController('FolderController').open(path);
-		
+		var link=app.model.Link.create({
+			url: path
+		});
+		this.tabs[path].link = link;
+		this.getStore('Links').add(link);
+		this.getStore('Links').sync();
 	},
 
     edit: function(grid, record) {
@@ -85,8 +117,7 @@ Ext.define('app.controller.FileController', {
     },
     
     waitEventIntern: function waitEventItern(eventName){
-        
-
+    	if(!SERVER_PUSH_ENABLED) return;
         this.request=Ext.Ajax.request({
             url: 'push',
             timeout : 600*1000,
@@ -124,5 +155,34 @@ Ext.define('app.controller.FileController', {
         	store.getProxy().extraParams=this.params ;
     		store.loadPage(1);
         }
+    },
+    
+    tabclick: function(tab){
+    	this.open(tab.text);
+    },
+    tabclose: function(tab){
+    	if(this.tabs[tab.text]){
+    		this.getStore('Links').remove(this.tabs[tab.text].link);
+    	}
+    	this.getStore('Links').sync();
+    },
+    
+    loadTabs: function(){
+    	var me=this;
+    	this.getStore('Links').load(
+        		function(l){
+        			this.removeAll();
+        			this.sync();
+        			for(var i=0;i<l.length;i++){
+        				me.open(l[i].get('url'));	
+        			}
+        			
+        			console.log("localstorage "+l.length);
+        		}
+        );
+    },
+    loadTabs: function(filelist){
+    	var me=this;
+    	//alert('path'+filelist.path);
     }
 });

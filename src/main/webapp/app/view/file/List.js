@@ -8,6 +8,7 @@ Ext.define('app.view.file.List' ,{
         emptyText: 'No records'
     },
     title : 'list ...',
+    bodyStyle: 'padding: 0px; margin: 0px',
     store: 'Lines',
     dockedItems: [{
         xtype: 'pagingtoolbar',

@@ -48,7 +48,7 @@ Ext.define('app.controller.FolderController', {
     		    node = node.findChildBy(
     		            function(anode){
     		            	//console.log(anode.data.path+" "+relativePath);
-    		                console.log("anode.name:" + anode.data.name+" ,folder:"+folders[i]);
+//    		                console.log("anode.name:" + anode.data.name+" ,folder:"+folders[i]);
     		                var name=anode.data.name;
     		                if(name[name.length-1]=='/') name=name.substring(0,name.length-1);
     		                return name===folders[i];

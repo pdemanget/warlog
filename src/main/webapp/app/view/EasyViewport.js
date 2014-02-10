@@ -17,15 +17,23 @@ items: [
     minSize: 100,
     maxSize: 500
 	,xtype: 'filetree'
-},{
-    title: 'Main Content',
-    collapsible: false,
-    region:'center',
+},{xtype: 'tabpanel',
+	region:'center',
+	title:'tabs',
     margins: '5 0 0 0',
     flex: 1,
-	xtype: 'filelist',
-	id:'maincontent',
-	
-}]	
-
+    collapsible: false,
+    id:'maincontent',
+	items:[
+//	       {
+//	    title: 'Main Content',
+//	    //collapsible: false,
+//	    //layout: 'fit',
+//	    flex: 1,
+//		xtype: 'filelist',
+//		
+//	}
+	       ]
+}]
+//endof define
 });
