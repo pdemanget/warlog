@@ -35,13 +35,14 @@ Ext.define('app.controller.FileController', {
             },
             'tab': {
             	click: this.tabclick,
+            	focus: this.tabclick,
             	close: this.tabclose
             },
             'tabpanel':{
             	afterrender: this.loadTabs
             },
             'filelist':{
-            	afterrender: this.loadTab
+            	 afterrender: this.loadTab
             }
 
         });
@@ -59,6 +60,7 @@ Ext.define('app.controller.FileController', {
 	open: function(path){
 		console.log("load path "+ path);
 		if(!path) return;
+		//TODO remove id
 		var tabpanel = Ext.getCmp('maincontent');
 		this.tabs=this.tabs||[];
 		if(!this.tabs[path]){
@@ -158,13 +160,15 @@ Ext.define('app.controller.FileController', {
     },
     
     tabclick: function(tab){
-    	this.open(tab.text);
+    	this.treeClick(null,{data:{path:tab.text}});
+    	//this.open(tab.text);
     },
     tabclose: function(tab){
     	if(this.tabs[tab.text]){
     		this.getStore('Links').remove(this.tabs[tab.text].link);
     	}
     	this.getStore('Links').sync();
+    	this.fireReload=true;
     },
     
     loadTabs: function(){
@@ -181,8 +185,11 @@ Ext.define('app.controller.FileController', {
         		}
         );
     },
-    loadTabs: function(filelist){
+    loadTab: function(filelist){
     	var me=this;
-    	//alert('path'+filelist.path);
+    	if (this.fireReload){
+    		fireReload=false;
+    		
+    	}
     }
 });

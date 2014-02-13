@@ -24,16 +24,7 @@ items: [
     flex: 1,
     collapsible: false,
     id:'maincontent',
-	items:[
-//	       {
-//	    title: 'Main Content',
-//	    //collapsible: false,
-//	    //layout: 'fit',
-//	    flex: 1,
-//		xtype: 'filelist',
-//		
-//	}
-	       ]
+	items: []
 }]
 //endof define
 });
