@@ -20,13 +20,13 @@ this war file has been tested under java7 environnement with 4 Application serve
 change list:  
 - [X] : last page tail option.  
 - [ ] : dynamic parsing server-side  
-- [ ] : line filtering server-side or client side  
+- [X] : line filtering server-side or client side  
 - [X] : line number in file  
 - [X] : use hash url  
 - [X] : only call file url on files  
 - [ ] : set more logs  
 - [X] : Use id instead of path for identifier (tree bug)  
-- [ ] : auto-expand tree  
+- [X] : auto-expand tree  
 - [ ] : manage folders bookmarks  
   
 known bugs  

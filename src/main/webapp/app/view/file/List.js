@@ -8,13 +8,34 @@ Ext.define('app.view.file.List' ,{
         emptyText: 'No records'
     },
     title : 'list ...',
+    bodyStyle: 'padding: 0px; margin: 0px',
     store: 'Lines',
     dockedItems: [{
         xtype: 'pagingtoolbar',
         dock: 'bottom',
         store: 'Lines',
-        displayInfo: true}],
-
+        displayInfo: true},
+        {
+            xtype: 'toolbar',
+            dock: 'top',
+            items: [
+                {
+                	xtype: 'textfield',
+                    name: 'pattern',
+        	        fieldLabel: 'Filter ',
+        	
+                },
+                '->',
+                {
+                    text: 'catalina',
+                    itemId: '1'
+                }
+            ]
+        }
+        ],
+//--
+//--        
+        
     columns: [
          {header: 'line',  dataIndex: 'id',  width:50}
         ,{header: 'A',  dataIndex: 'col1',  flex: 1, renderer: 'htmlEncode'}

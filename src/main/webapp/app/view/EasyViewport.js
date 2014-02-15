@@ -8,23 +8,6 @@ defaults: {
     bodyStyle: 'padding:15px'
 },
 items: [
-//{
-//    title: 'Menu',
-//    region: 'north',
-//    height: 50,
-//    minSize: 25,
-//    maxSize: 250,
-//    cmargins: '5 0 0 0'
-//}
-//	,{
-//    title: 'Footer',
-//    region: 'south',
-//    height: 50,
-//    minSize: 25,
-//    maxSize: 250,
-//    cmargins: '5 0 0 0'
-//},
-//http://www.gnu.org/graphics/gplv3-88x31.png
 {
     title: 'Navigation',
     region:'west',
@@ -34,14 +17,14 @@ items: [
     minSize: 100,
     maxSize: 500
 	,xtype: 'filetree'
-},{
-    title: 'Main Content',
-    collapsible: false,
-    region:'center',
+},{xtype: 'tabpanel',
+	region:'center',
+	title:'tabs',
     margins: '5 0 0 0',
     flex: 1,
-	xtype: 'filelist',
-	id:'maincontent'
-}]	
-
+    collapsible: false,
+    id:'maincontent',
+	items: []
+}]
+//endof define
 });
