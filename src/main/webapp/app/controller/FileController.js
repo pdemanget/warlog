@@ -93,8 +93,10 @@ Ext.define('app.controller.FileController', {
                 var store=this.getStore("Lines");
                 store.load();
             },
-            callback: function(){
-                this.waitEventIntern(eventName);
+            callback: function(a,opts){
+            	if(opts) {
+            		this.waitEventIntern(eventName);
+            	}
             }
         });
     }
