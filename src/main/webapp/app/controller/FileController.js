@@ -1,4 +1,4 @@
-var SERVER_PUSH_ENABLED=false;
+var SERVER_PUSH_ENABLED=true;
 
 /**
  * Controller that manage links.
@@ -114,6 +114,7 @@ Ext.define('app.controller.FileController', {
     waitEvent: function waitEvent(eventName){
         //stop last one
         if (this.request){
+        	console.log("stop wait");
             Ext.Ajax.abort( this.request);
         }
         //start new one
@@ -122,6 +123,7 @@ Ext.define('app.controller.FileController', {
     
     waitEventIntern: function waitEventItern(eventName){
     	if(!SERVER_PUSH_ENABLED) return;
+    	console.log('waitEventIntern');
         this.request=Ext.Ajax.request({
             url: 'push',
             timeout : 600*1000,
@@ -136,8 +138,12 @@ Ext.define('app.controller.FileController', {
                 var store=this.getStore("Lines");
                 store.load();
             },
-            callback: function(){
-                this.waitEventIntern(eventName);
+            callback: function(response, opts){
+            	//don't relaunch on abort!
+            	if(opts){
+            		console.log('wait callback '+response.status);
+            		this.waitEventIntern(eventName);
+            	}
             }
         });
     },
