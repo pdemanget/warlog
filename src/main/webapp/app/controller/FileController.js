@@ -34,9 +34,11 @@ Ext.define('app.controller.FileController', {
             	specialkey: this.specialkey
             },
             'tab': {
-            	click: this.tabclick,
-            	focus: this.tabclick,
-            	close: this.tabclose
+            	focus: this.tabfocus,
+            	close: this.tabclose,
+            	activate: function(){
+            		console.log('activate');
+            	}
             },
             'tabpanel':{
             	afterrender: this.loadTabs
@@ -71,6 +73,12 @@ Ext.define('app.controller.FileController', {
 				xtype: 'filelist',
 				closable: true
 			});
+			var link=app.model.Link.create({
+				url: path
+			});
+			this.tabs[path].link = link;
+			this.getStore('Links').add(link);
+			this.getStore('Links').sync();
 		}
 		tabpanel.setActiveTab(this.tabs[path]);
 		
@@ -84,12 +92,6 @@ Ext.define('app.controller.FileController', {
 		this.waitEvent(path);
 		//Synchronize with package view
 		this.getController('FolderController').open(path);
-		var link=app.model.Link.create({
-			url: path
-		});
-		this.tabs[path].link = link;
-		this.getStore('Links').add(link);
-		this.getStore('Links').sync();
 	},
 
     edit: function(grid, record) {
@@ -159,13 +161,16 @@ Ext.define('app.controller.FileController', {
         }
     },
     
-    tabclick: function(tab){
+    tabfocus: function(tab){
+    	console.log("tabfocus");
     	this.treeClick(null,{data:{path:tab.text}});
     	//this.open(tab.text);
     },
     tabclose: function(tab){
+    	console.log("tabclose");
     	if(this.tabs[tab.text]){
     		this.getStore('Links').remove(this.tabs[tab.text].link);
+    		this.tabs[tab.text]=null;
     	}
     	this.getStore('Links').sync();
     	this.fireReload=true;
@@ -173,17 +178,17 @@ Ext.define('app.controller.FileController', {
     
     loadTabs: function(){
     	var me=this;
-    	this.getStore('Links').load(
-        		function(l){
-        			this.removeAll();
-        			this.sync();
-        			for(var i=0;i<l.length;i++){
-        				me.open(l[i].get('url'));	
-        			}
-        			
-        			console.log("localstorage "+l.length);
-        		}
-        );
+    	var linkStore = this.getStore('Links');
+    	linkStore.load();
+    	var l = linkStore.getRange();
+    	linkStore.getProxy().clear();
+		
+		linkStore.sync();
+		for(var i=0;i<l.length;i++){
+			me.open(l[i].get('url'));	
+		}
+		
+		console.log("localstorage "+l.length);
     },
     loadTab: function(filelist){
     	var me=this;
