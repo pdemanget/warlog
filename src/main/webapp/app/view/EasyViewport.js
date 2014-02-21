@@ -23,7 +23,7 @@ items: [
     margins: '5 0 0 0',
     flex: 1,
     collapsible: false,
-    id:'maincontent',
+    itemId:'maincontent',
 	items: []
 }]
 //endof define

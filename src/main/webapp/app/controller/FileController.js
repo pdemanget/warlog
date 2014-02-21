@@ -10,7 +10,7 @@ Ext.define('app.controller.FileController', {
 
     models: ['File','Line'],
 
-    views: ['file.List', 'file.Tree'],
+    views: ['file.List', 'file.Tree', 'file.Raw'],
     
     requires: ['app.util.Ajax'],
 
@@ -33,6 +33,9 @@ Ext.define('app.controller.FileController', {
             'filelist textfield': {
             	specialkey: this.specialkey
             },
+            'fileraw textfield': {
+            	specialkey: this.specialkey
+            },
             'tab': {
             	focus: this.tabfocus,
             	close: this.tabclose,
@@ -41,10 +44,11 @@ Ext.define('app.controller.FileController', {
             	}
             },
             'tabpanel':{
+            	activate: this.loadTab,
             	afterrender: this.loadTabs
             },
             'filelist':{
-            	 afterrender: this.loadTab
+//            	 afterrender: this.loadTab
             }
 
         });
@@ -63,16 +67,26 @@ Ext.define('app.controller.FileController', {
 		console.log("load path "+ path);
 		if(!path) return;
 		//TODO remove id
-		var tabpanel = Ext.getCmp('maincontent');
+		//var tabpanel = Ext.getCmp('maincontent');
+		var tabpanel=this.tabpanel;
 		this.tabs=this.tabs||[];
 		if(!this.tabs[path]){
+			
+			this.tabs[path]=tabpanel.add({
+			    title: path,
+			    path: path,
+			    closable: true,
+		        xtype     : 'fileraw',
+			});
+		
+			/*
 			this.tabs[path]=tabpanel.add({
 			    title: path,
 			    path: path,
 			    layout: 'fit',
 				xtype: 'filelist',
 				closable: true
-			});
+			});*/
 			var link=app.model.Link.create({
 				url: path
 			});
@@ -88,7 +102,9 @@ Ext.define('app.controller.FileController', {
 		store.on('exception',function( store, records, options ){
 			console.log('EXCEPTION !!!');
 		});
+		var me = this;
 		store.loadPage(1);
+
 		this.waitEvent(path);
 		//Synchronize with package view
 		this.getController('FolderController').open(path);
@@ -180,7 +196,11 @@ Ext.define('app.controller.FileController', {
     	this.fireReload=true;
     },
     
-    loadTabs: function(){
+    /**
+     * init tabs from localtorage
+     */
+    loadTabs: function(tabpanel){
+    	this.loadTab(tabpanel);
     	var me=this;
     	var linkStore = this.getStore('Links');
     	linkStore.load();
@@ -194,11 +214,8 @@ Ext.define('app.controller.FileController', {
 		
 		console.log("localstorage "+l.length);
     },
-    loadTab: function(filelist){
-    	var me=this;
-    	if (this.fireReload){
-    		fireReload=false;
-    		
-    	}
+    loadTab: function(tabpanel){
+    	console.log("tabpanel"+tabpanel);
+    	this.tabpanel=tabpanel;
     }
 });

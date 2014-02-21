@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
@@ -63,6 +64,8 @@ public class JSONUtils {
 	
 	public static String toJsonString(Object o) {
 		  ObjectMapper objectMapper = new ObjectMapper();
+		  objectMapper.configure(SerializationFeature.INDENT_OUTPUT,true);
+		  objectMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES,false);
 		try {
 			return objectMapper.writeValueAsString(o);
 		} catch (JsonProcessingException e) {
