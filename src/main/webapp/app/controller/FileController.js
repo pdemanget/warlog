@@ -6,13 +6,15 @@ var SERVER_PUSH_ENABLED=true;
 Ext.define('app.controller.FileController', {
     extend: 'Ext.app.Controller',
 
-    stores: ['Lines','FileTree', 'Links'],
+    stores: ['BufferedLines', 'Lines','FileTree', 'Links'],
 
     models: ['File','Line'],
 
     views: ['file.List', 'file.Tree', 'file.Raw'],
     
     requires: ['app.util.Ajax'],
+    
+    raw: true, 
 
     init: function() {
     	var me=this;
@@ -32,6 +34,9 @@ Ext.define('app.controller.FileController', {
             },
             'filelist textfield': {
             	specialkey: this.specialkey
+            },
+            'fileraw toolbar button': {
+            	click: this.tbbutton
             },
             'fileraw textfield': {
             	specialkey: this.specialkey
@@ -59,6 +64,11 @@ Ext.define('app.controller.FileController', {
 		var route= this.getController('RouteController');
 		route.open(f.data.path+"?"+(f.data.folder?"Folder":"File"));
 	},
+	
+	lazyCreate:function(map,key,factory_key){
+		if(!map[key]) map[key]=factory_key(key);
+		return map[key];
+	},
 
 	/**
 	 * inderictly called from treeclick.
@@ -70,31 +80,36 @@ Ext.define('app.controller.FileController', {
 		//var tabpanel = Ext.getCmp('maincontent');
 		var tabpanel=this.tabpanel;
 		this.tabs=this.tabs||[];
-		if(!this.tabs[path]){
-			
-			this.tabs[path]=tabpanel.add({
-			    title: path,
-			    path: path,
-			    closable: true,
-		        xtype     : 'fileraw',
-			});
-		
-			/*
-			this.tabs[path]=tabpanel.add({
-			    title: path,
-			    path: path,
-			    layout: 'fit',
-				xtype: 'filelist',
-				closable: true
-			});*/
+		var key=this.raw?"raw_":"list_";
+		key += path;
+		var me=this;
+		var tab = this.lazyCreate(this.tabs,key, function(key){
+			var newtab;
+			if (me.raw){
+				newtab=tabpanel.add({
+				    title: path,
+				    path: path,
+				    closable: true,
+			        xtype     : 'fileraw',
+				});
+			}else{
+				newtab=tabpanel.add({
+				    title: path,
+				    path: path,
+				    layout: 'fit',
+					xtype: 'filelist',
+					closable: true
+				});
+			}
 			var link=app.model.Link.create({
 				url: path
 			});
-			this.tabs[path].link = link;
-			this.getStore('Links').add(link);
-			this.getStore('Links').sync();
-		}
-		tabpanel.setActiveTab(this.tabs[path]);
+			newtab.link = link;
+			me.getStore('Links').add(link);
+			me.getStore('Links').sync();
+			return newtab;
+		});
+		tabpanel.setActiveTab(tab);
 		
 		var store=this.getStore("Lines");
 		this.params={path:path};
@@ -103,8 +118,8 @@ Ext.define('app.controller.FileController', {
 			console.log('EXCEPTION !!!');
 		});
 		var me = this;
-		store.loadPage(1);
-
+		//store.loadPage(1);
+		store.load();
 		this.waitEvent(path);
 		//Synchronize with package view
 		this.getController('FolderController').open(path);
@@ -162,9 +177,21 @@ Ext.define('app.controller.FileController', {
         });
     },
     
-    tbbutton: function(){
-    	this.getController('FolderController').
-    		open('D:/batsh/apache-tomcat-7.0.41/log');
+    /**
+     * open as raw/list.
+     * toggle option the close/reopen.
+     */
+    tbbutton: function(but, evt, opt){
+    	this.raw=!this.raw;
+    	var tab = but.up('panel');
+    	var path=tab.path;
+//    	this.tabclose(tab);
+//    	tab.close();
+    	this.tabs[path]=null;
+    	this.open(path);
+    	//this.treeClick(null,{data:{path:path}});
+//    	this.getController('FolderController').
+//    		open('D:/batsh/apache-tomcat-7.0.41/log');
     },
     
     specialkey: function(field, e){

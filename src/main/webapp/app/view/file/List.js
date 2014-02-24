@@ -1,5 +1,8 @@
 /**
  * List of line of a file.
+ * 
+ * adding infinite scroll: 
+    'Ext.grid.PagingScroller' + verticalScrollerType: 'paginggridscroller',
  */
 Ext.define('app.view.file.List' ,{
     extend: 'Ext.grid.Panel',
@@ -11,11 +14,11 @@ Ext.define('app.view.file.List' ,{
     bodyStyle: 'padding: 0px; margin: 0px',
     store: 'Lines',
     dockedItems: [{
-        xtype: 'pagingtoolbar',
-        dock: 'bottom',
-        store: 'Lines',
-        displayInfo: true},
-        {
+	        xtype: 'pagingtoolbar',
+	        dock: 'bottom',
+	        store: 'Lines',
+	        displayInfo: true
+	    },{
             xtype: 'toolbar',
             dock: 'top',
             items: [
@@ -27,7 +30,7 @@ Ext.define('app.view.file.List' ,{
                 },
                 '->',
                 {
-                    text: 'catalina',
+                    text: 'display as raw text',
                     itemId: '1'
                 }
             ]

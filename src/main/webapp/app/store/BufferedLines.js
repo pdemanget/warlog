@@ -1,9 +1,9 @@
-Ext.define('app.store.Lines', {
+Ext.define('app.store.BufferedLines', {
     extend: 'Ext.data.Store',
     model: 'app.model.Line',
     autoLoad: false,
     pageSize: 100,
-    //buffered: true, 
+    buffered: true,
     
     proxy: {
         type: 'appajax',

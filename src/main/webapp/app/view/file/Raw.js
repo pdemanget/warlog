@@ -70,7 +70,8 @@ Ext.define('app.view.file.Raw' ,{
     	});
     	
     	this.storeImpl.on('load', function(st,models){
-    		var linenumbers=me.down('checkbox').getValue();
+    		var ck =me.down('checkbox');
+    		var linenumbers=ck&&ck.getValue();
     		console.log("linenumbers "+linenumbers);
 			var txt='';
 			var lab='';

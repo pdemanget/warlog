@@ -57,6 +57,7 @@ Ext.define('app.controller.RouteController', {
 				if(tokens[1]) 
 					var control=this.getController(tokens[1]+'Controller');
 			}catch (e){}
+			document.title="log of "+tokens[0];
 			if (control)
 				control.open( tokens[0] );
 		}
