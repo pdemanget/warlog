@@ -58,17 +58,24 @@ Ext.define('app.view.file.Raw' ,{
     setRawValue: function(text){
     	this.down('textareafield').setRawValue(text);
     },
+    getStore: function(){
+    	return this.storeImpl;
+    },
     initComponent:function(){
     	this.callParent();
-    	this.storeImpl=Ext.getStore(this.store);
+    	var SAMESTORE=true;
+    	if(SAMESTORE){
+    		this.storeImpl=Ext.getStore(this.store);
+    	}else{
+    		this.storeImpl=Ext.create('app.store.Lines');
+    		this.storeImpl.load();
+    		
+    	}
     	var area=this.down('textareafield[name=message]');
-    	
-    	
     	var me=this;
     	this.down('checkbox').on('change',function(){
     		me.storeImpl.reload();
     	});
-    	
     	this.storeImpl.on('load', function(st,models){
     		var ck =me.down('checkbox');
     		var linenumbers=ck&&ck.getValue();
@@ -82,6 +89,5 @@ Ext.define('app.view.file.Raw' ,{
 			}
 			area.setRawValue(txt);
 		});
-    	
     }
 });

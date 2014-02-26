@@ -2,6 +2,7 @@
 *.class
 *~
 *.orig
+*Tmp.js
 # Package Files #
 *.jar
 *.war
