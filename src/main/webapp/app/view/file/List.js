@@ -13,6 +13,7 @@ Ext.define('app.view.file.List' ,{
     title : 'list ...',
     bodyStyle: 'padding: 0px; margin: 0px',
     store: 'Lines',
+    focusOnToFront: false,
     dockedItems: [{
 	        xtype: 'pagingtoolbar',
 	        dock: 'bottom',
@@ -31,7 +32,7 @@ Ext.define('app.view.file.List' ,{
                 '->',
                 {
                     text: 'display as raw text',
-                    itemId: '1'
+                    itemId: 'switch'
                 }
             ]
         }

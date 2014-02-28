@@ -29,14 +29,11 @@ Ext.define('app.controller.FileController', {
             'fileedit button[action=save]': {
                 click: this.updateUser
             },
-            'filelist toolbar button': {
+            'button[itemId=switch]': {
             	click: this.tbbutton
             },
             'filelist textfield': {
             	specialkey: this.specialkey
-            },
-            'fileraw toolbar button': {
-            	click: this.tbbutton
             },
             'fileraw textfield': {
             	specialkey: this.specialkey
@@ -87,18 +84,20 @@ Ext.define('app.controller.FileController', {
 			var newtab;
 			if (me.raw){
 				newtab=tabpanel.add({
-				    title: path,
-				    path: path,
-				    closable: true,
-			        xtype     : 'fileraw',
+				    title    : path,
+				    path     : path,
+				    closable : true,
+			        xtype    : 'fileraw',
+			        key      : key
 				});
 			}else{
 				newtab=tabpanel.add({
-				    title: path,
-				    path: path,
-				    layout: 'fit',
-					xtype: 'filelist',
-					closable: true
+				    title    : path,
+				    path     : path,
+				    layout   : 'fit',
+					xtype    : 'filelist',
+					closable : true,
+					key      : key
 				});
 			}
 			var link=app.model.Link.create({
@@ -185,10 +184,15 @@ Ext.define('app.controller.FileController', {
     	this.raw=!this.raw;
     	var tab = but.up('panel');
     	var path=tab.path;
-//    	this.tabclose(tab);
-//    	tab.close();
-    	this.tabs[path]=null;
-    	this.open(path);
+    	
+    	this.tabclose(tab);//remove if bug
+
+    	//this.tabs[tab.key]=null;
+    	
+    	this.open(path);//remove if bug
+
+    	tab.close();
+    	
     	//this.treeClick(null,{data:{path:path}});
 //    	this.getController('FolderController').
 //    		open('D:/batsh/apache-tomcat-7.0.41/log');
@@ -215,9 +219,9 @@ Ext.define('app.controller.FileController', {
     },
     tabclose: function(tab){
     	console.log("tabclose");
-    	if(this.tabs[tab.text]){
-    		this.getStore('Links').remove(this.tabs[tab.text].link);
-    		this.tabs[tab.text]=null;
+    	if(this.tabs[tab.key]){
+    		this.getStore('Links').remove(this.tabs[tab.key].link);
+    		this.tabs[tab.key]=null;
     	}
     	this.getStore('Links').sync();
     	this.fireReload=true;

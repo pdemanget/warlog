@@ -41,7 +41,7 @@ Ext.define('app.view.file.Raw' ,{
                 '->',
                 {
                     text: 'display as list',
-                    itemId: '1'
+                    itemId: 'switch'
                 }
             ]
         }
