@@ -17,7 +17,25 @@ this war file has been tested under java7 environnement with 4 Application serve
   Glassfish: 	add war file to glassfishv3/glassfish/domains/domain1/autodeploy
   Jetty: 	launch "java -jar jetty-runner warlog.war"
   
-change list:  
+Change log
+==========
+V0.3.0
+------
+managing file as text
+
+V0.2.0
+------
+manageing tabs
+
+V0.1.0
+------
+first release with tree, file reading as list
+
+change list
+===========
+- [ ] : file saving
+- [ ] : Security base on openid
+- [ ] : 0.3 manage multwindow trees in same page  
 - [X] : last page tail option.  
 - [ ] : dynamic parsing server-side  
 - [X] : line filtering server-side or client side  

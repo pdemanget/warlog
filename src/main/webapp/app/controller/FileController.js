@@ -2,6 +2,15 @@ var SERVER_PUSH_ENABLED=true;
 
 /**
  * Controller that manage links.
+ * 
+ * Hierarchy call:
+ * RouteController hash : #path?controller -> controller.open(path)
+ * open(path) ->
+ *  lazyCreateTabs
+ *  store links : sync
+ *  store ines: setproxy to new path
+ *  storelines load.
+ *  FolderController.open path -> file highlight in tree
  */
 Ext.define('app.controller.FileController', {
     extend: 'Ext.app.Controller',
