@@ -34,7 +34,7 @@ first release with tree, file reading as list
 change list
 ===========
 - [ ] : file saving
-- [ ] : Security base on openid
+- [ ] : Security based on openid
 - [ ] : 0.3 manage multwindow trees in same page  
 - [X] : last page tail option.  
 - [ ] : dynamic parsing server-side  
