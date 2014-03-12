@@ -86,7 +86,7 @@ Ext.define('app.controller.FileController', {
 		//var tabpanel = Ext.getCmp('maincontent');
 		var tabpanel=this.tabpanel;
 		this.tabs=this.tabs||[];
-		var key=this.raw?"raw_":"list_";
+		var key='';//this.raw?"raw_":"list_";
 		key += path;
 		var me=this;
 		var tab = this.lazyCreate(this.tabs,key, function(key){
@@ -196,7 +196,7 @@ Ext.define('app.controller.FileController', {
     	
     	this.tabclose(tab);//remove if bug
 
-    	//this.tabs[tab.key]=null;
+    	this.tabs[tab.key]=null;
     	
     	this.open(path);//remove if bug
 
