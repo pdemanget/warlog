@@ -228,9 +228,9 @@ Ext.define('app.controller.FileController', {
     },
     tabclose: function(tab){
     	console.log("tabclose");
-    	if(this.tabs[tab.key]){
-    		this.getStore('Links').remove(this.tabs[tab.key].link);
-    		this.tabs[tab.key]=null;
+    	if(this.tabs[tab.text]){
+    		this.getStore('Links').remove(this.tabs[tab.text].link);
+    		this.tabs[tab.text]=null;
     	}
     	this.getStore('Links').sync();
     	this.fireReload=true;

@@ -1,7 +1,6 @@
 package fr.warlog.web;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -21,7 +20,7 @@ import fr.warlog.util.JSONUtils;
 public class PushServlet extends HttpServlet {
   
   private static final Map<String, Object> events = new Hashtable<>();
-  private static final long TIME_OUT = 10* 60_000;
+  protected static final long TIME_OUT = 10* 60_000;
   
   public static void pushEvent(String event,Object o){
 	  events.put(event,o);
