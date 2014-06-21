@@ -17,8 +17,22 @@ this war file has been tested under java7 environnement with 4 Application serve
   Glassfish: 	add war file to glassfishv3/glassfish/domains/domain1/autodeploy
   Jetty: 	launch "java -jar jetty-runner warlog.war"
   
+Installation
+------------
+configure the parameter "whitelist" in the file /etc/warlog.properties or the included resource src/main/resources/warlog.properties
+mvn package
+copy or install the war : target/warlog.war
+
+OR
+download the binary war file from http://sourceforge.net/projects/warlog
+  
+  
 Change log
 ==========
+V0.3.1 (2014-06-21)
+-------------------
+Configuration in warlog.properties and file filter
+
 V0.3.0
 ------
 managing file as text

@@ -15,6 +15,7 @@ import fr.warlog.util.JSONUtils;
  * list nodes of a folder.
  * @author Philippe
  */
+@SuppressWarnings("serial")
 public class FolderServlet extends HttpServlet {
 
   @Override

@@ -17,13 +17,14 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.log4j.Logger;
 
+import fr.warlog.util.Configs;
 import fr.warlog.util.Data;
 import fr.warlog.util.MainUtils;
 import fr.warlog.util.StandardException;
 import fr.warlog.util.Utils;
 
 /**
- * File Management
+ * File Management.
  * 
  * @author Philippe
  */
@@ -41,12 +42,27 @@ public class FileMgt {
   private List<FileNode> toFileNodes(File[] listRoots) {
     List<FileNode> res = new ArrayList<FileNode>();
     for(File file:listRoots){
-      res.add(toFileNode(file));
+    	if(filter(file.getAbsolutePath()))
+    		res.add(toFileNode(file));
     }
     return res;
   }
 
-  private long nextId(String path){
+  private boolean filter(String absolutePath) {
+  	String whitelist = Configs.getParam("whitelist","");
+  	String[] patternList=whitelist.split(",");
+  	boolean authorized=false;
+  	for(String pattern:patternList){
+			if (absolutePath.length() < pattern.length()) {
+				authorized |= pattern.startsWith(absolutePath);
+			}else{
+				authorized |= absolutePath.startsWith(pattern);
+			}
+  	}
+		return authorized;
+	}
+
+	private long nextId(String path){
 	  if(mapId.get(path) == null)  mapId.put(path,++lastId);
 	  return mapId.get(path);
   }
@@ -94,12 +110,13 @@ public class FileMgt {
   }
   
   
-  
-  
   /**
-   * Lit le fichier à envoyer 
+   * Read all the file to send. 
    */
   public  String readFile( String pMsg ) {
+  	if (!filter(pMsg)){
+  		throw new IllegalAccessError("File not allowed for read");
+  	}
 	 
       StringBuffer result = new StringBuffer();
       BufferedReader lBis = null;
@@ -144,6 +161,9 @@ public class FileMgt {
  * @param sep 
    */
   public  Data<List<Line>>  readFileLines( String pMsg , int start, int limit, String sep, int col, String spattern) {
+  	if (!filter(pMsg)){
+  		throw new IllegalAccessError("File not allowed for read");
+  	}
     List<Line>  result = new ArrayList<Line>();
     Data<List<Line>> dataRes = new Data<List<Line>>(result);
       BufferedReader lBis = null;
