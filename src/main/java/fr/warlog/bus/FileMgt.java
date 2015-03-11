@@ -25,7 +25,7 @@ import fr.warlog.util.Utils;
 
 /**
  * File Management.
- * 
+ * Get file content and directory content wrapped in object Model for Jackson.
  * @author Philippe
  */
 public class FileMgt {

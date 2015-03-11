@@ -12,7 +12,7 @@ note on ExtJS:
 
 installation Note:
 this war file has been tested under java7 environnement with 4 Application server:
-  Tomcat: 	add war to tomcat/webapps
+  Tomcat: 	add war to tomcat/webapps or run "mvn tomcat:run"
   JBoss: 	add war file in jboss-eap-6.1/standalone/deployments/
   Glassfish: 	add war file to glassfishv3/glassfish/domains/domain1/autodeploy
   Jetty: 	launch "java -jar jetty-runner warlog.war"
