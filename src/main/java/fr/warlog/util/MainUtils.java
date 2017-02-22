@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Some utilities for command-line application.
+ * Some utilities for command-line application (CLI).
  * 
  * MainHelper loads commmand line arguments AND conf.properties in resources and current filepath.
  * 
@@ -371,7 +371,7 @@ public class MainUtils {
             logError(
 
             "����������������������������������������������������������������������������Ŀ\n"
-                + "�                     " + pAppName + "  � SLIB 2010                      �\n"
+                + "�                     " + pAppName + "  � 2010                      �\n"
                 + "� Usage :                                   ��������������������������������Ĵ\n"
 
                 + "� " + pUsage1 + "�\n" + "� " + pUsage2 + "�\n"
@@ -381,7 +381,7 @@ public class MainUtils {
             logError(
 
             "/----------------------------------------------------------------------------\\\n" + "|                  "
-                + pAppName + "     | SLIB 2010                      |\n"
+                + pAppName + "     |  2010                      |\n"
                 + "| Usage :                                   \\--------------------------------|\n" + "| " + pUsage1
                 + "|\n" + "| " + pUsage2 + "|\n"
                 + "\\----------------------------------------------------------------------------/\n" );
