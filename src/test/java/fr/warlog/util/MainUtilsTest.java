@@ -1,6 +1,6 @@
 package fr.warlog.util;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of MainUtils Class

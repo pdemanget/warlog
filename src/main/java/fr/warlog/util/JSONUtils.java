@@ -3,7 +3,8 @@ package fr.warlog.util;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
  */
 public class JSONUtils {
 	
-	private static final Logger logger = Logger.getLogger(JSONUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(JSONUtils.class);
 	
 	protected static JavaType getJavaType(Class<?> clazz) {
         return TypeFactory.defaultInstance().constructType(clazz);

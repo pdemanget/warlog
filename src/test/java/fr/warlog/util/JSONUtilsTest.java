@@ -1,6 +1,7 @@
 package fr.warlog.util;
 
-import org.junit.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import fr.warlog.bus.FileNode;
 
@@ -16,7 +17,7 @@ public class JSONUtilsTest {
     FileNode node = new FileNode();
     node.setPath("/aa/bb");
     String jsonString = JSONUtils.toJsonString(node);
-    Assert.assertNotNull("json result", jsonString);
+    Assertions.assertNotNull("json result", jsonString);
   }
 
 }

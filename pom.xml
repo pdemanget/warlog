@@ -1,154 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>fr.warlog</groupId>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.github.pdemanget</groupId>
 	<artifactId>warlog</artifactId>
-	<packaging>war</packaging>
-	<version>0.3.3-SNAPSHOT</version>
-	<name>warlog Maven Webapp</name>
-	<url>http://maven.apache.org</url>
+	<version>0.4.1-SNAPSHOT</version>
+	<name>warlog</name>
+	<description>warlog in spring boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>2.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>extjs</artifactId>
-			<version>4.2.1.883</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-		    <groupId>jetty</groupId>
-		    <artifactId>jetty</artifactId>
-		    <version>6.0.2</version>
-		</dependency>
 	</dependencies>
-	<properties>
-		<webXmlPath>path/to/default/webXml</webXmlPath>
-	</properties>
-	<profiles>
-		<profile>
-			<id>anonymous</id>
-			<properties>
-				<webXmlPath>WEB-INF/web.xml.tomcat</webXmlPath>
-			</properties>
-		</profile>
-		<profile>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<id>tomcat</id>
-			<properties>
-				<webXmlPath>WEB-INF/web.xml.tomcat</webXmlPath>
-			</properties>
-		</profile>
-	</profiles>
+
 	<build>
-		<finalName>warlog</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<warName>${context.path}</warName>
-					<!-- <packagingExcludes>app,ext</packagingExcludes> -->
-					<warSourceExcludes>store/**</warSourceExcludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
-			<!-- http://stackoverflow.com/questions/20491407/create-a-executable-jar-using-maven-and-jetty  -->
-			<plugin>
-			    <groupId>org.apache.tomcat.maven</groupId>
-			    <artifactId>tomcat7-maven-plugin</artifactId>
-			    <version>2.0</version>
-			    <executions>
-			        <execution>
-			            <id>tomcat-run</id>
-			            <goals>
-			                <goal>exec-war-only</goal>
-			            </goals>
-			            <phase>package</phase>
-			            <configuration>
-			                <path>/standalone</path>
-			                <enableNaming>false</enableNaming>
-			                <finalName>warlog.jar</finalName>
-			                <charset>utf-8</charset>
-			            </configuration>
-			        </execution>
-			    </executions>
-			</plugin>
-			<plugin>
-		        <groupId>org.codehaus.cargo</groupId>
-		        <artifactId>cargo-maven2-plugin</artifactId>
-		        <version>1.6.2</version>
-		        <configuration>
-		          <container>
-		            <containerId>tomcat8x</containerId>
-		            <zipUrlInstaller>
-		              <url>http://repo1.maven.org/maven2/org/apache/tomcat/tomcat/8.5.9/tomcat-8.5.9.zip</url>
-		            </zipUrlInstaller>
-		          </container>
-		        </configuration>
-		      </plugin>
-			<plugin>
-			    <groupId>org.apache.tomcat.maven</groupId>
-			    <artifactId>tomcat8-maven-plugin</artifactId>
-			    <version>3.0-r1655215</version>
-			</plugin>
-			<plugin>
-			  <groupId>org.eclipse.jetty</groupId>
-			  <artifactId>jetty-maven-plugin</artifactId>
-			  <version>9.4.1.v20170120</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

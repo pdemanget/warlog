@@ -15,7 +15,8 @@ import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipInputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.warlog.util.Configs;
 import fr.warlog.util.Data;
@@ -29,7 +30,7 @@ import fr.warlog.util.Utils;
  * @author Philippe
  */
 public class FileMgt {
-  private static final Logger log = Logger.getLogger(FileMgt.class);
+  private static final Logger log = LoggerFactory.getLogger(FileMgt.class);
   private static Map<String,Long> mapId=new Hashtable<>();
   private static long lastId=1;
   

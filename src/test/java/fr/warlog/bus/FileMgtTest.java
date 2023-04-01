@@ -1,7 +1,7 @@
 package fr.warlog.bus;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import fr.warlog.util.JSONUtils;
 
@@ -11,7 +11,7 @@ public class FileMgtTest {
   public void testRoot(){
     String jsonString = JSONUtils.toJsonString( new FileMgt().roots() );
     System.out.println(jsonString);
-    Assert.assertNotNull(jsonString);
+    Assertions.assertNotNull(jsonString);
   }
 
 }
